@@ -1,0 +1,46 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.poga.radio.dao.CheckoutMapper">
+
+    <resultMap id="BaseResultMap" type="com.poga.radio.domain.Checkout">
+
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="song_id" property="songId" jdbcType="INTEGER" />
+        <result column="singer_id" property="singerId" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="song_price" property="songPrice" jdbcType="INTEGER" />
+        <result column="song_name" property="songName" jdbcType="VARCHAR" />
+        <result column="song_pic" property="songPic" jdbcType="VARCHAR" />
+        <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+        <result column="song_url" property="songUrl" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+
+        id, song_id, singer_id,user_id,song_price, song_name, song_pic,
+        introduction,song_url
+    </sql>
+
+    <select id="getAllCheckout" resultMap="BaseResultMap">
+        select * from checkout
+    </select>
+
+<!--    <select id="findUserById" resultMap="UserResultMap">-->
+<!--        select id, name, email from users WHERE id=#{id}-->
+<!--    </select>-->
+
+    <delete id="deleteCheckout" parameterType="java.lang.Integer" >
+        delete from checkout
+        where checkout.user_id = #{userId, jdbcType=INTEGER}
+    </delete>
+
+<!--     this is the main logic make sure that the inserted value match with the model name-->
+    <insert id="insert" parameterType="com.poga.radio.domain.Checkout" >
+        insert into checkout(id,song_id,singer_id,user_id,song_price,song_name,song_pic,introduction,song_url) values (#{id,jdbcType=INTEGER},#{songId,jdbcType=INTEGER},#{singerId,jdbcType=INTEGER}
+        ,#{userId,jdbcType=INTEGER},#{songPrice,jdbcType=INTEGER},#{songName,jdbcType=VARCHAR},#{songPic,jdbcType=VARCHAR},#{introduction,jdbcType=VARCHAR},#{songUrl,jdbcType=VARCHAR})
+    </insert>
+
+
+</mapper>
